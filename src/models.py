@@ -8,23 +8,69 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
+class Usuario(Base):
+    __tablename__ = 'usuario'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    password= Column(String(20), nullable=False)
+    email=Column(String(30), nullable=False)
+    # favoritos_id = Column(Integer, ForeignKey('favoritos.id'))
+    # favoritos = relationship(Favoritos)
 
-class Address(Base):
-    __tablename__ = 'address'
+class Personajes(Base):
+    __tablename__ = 'personajes'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    nombre = Column(String(250), nullable=False)
+    apellido = Column(String(250), nullable=False)
+    genero = Column(String(250), nullable=False)
+    color_piel = Column(String(250), nullable=False)
+    color_pelo = Column(String(250), nullable=False)
+    color_ojos = Column(String(250), nullable=False)
+    fecha_nacimiento = Column(String(250), nullable=False)
+    # favoritos_id = Column(Integer, ForeignKey('favoritos.id'))
+    # favoritos = relationship(Favoritos)
+class Favoritos(Base):
+    __tablename__ = 'favoritos'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    agregar = Column(String(250), nullable=False)
+    eliminar = Column(String(250), nullable=False)
+    usuario_id = Column(Integer, ForeignKey('usuario.id'))
+    usuario = relationship(Usuario)
+    planetas_id = Column(Integer, ForeignKey('planetas.id'))
+    planetas = relationship(Usuario)
+    vehicles_id = Column(Integer, ForeignKey('vehicles.id'))
+    vehicles = relationship(Usuario)
+    personajes_id = Column(Integer, ForeignKey('personajes.id'))
+    personajes = relationship(Usuario)
+
+class Planetas(Base):
+    __tablename__ = 'planetas'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    nombre = Column(String(250))
+    poblacion = Column(String(250))
+    terreno = Column(String(250))
+    # favoritos_id = Column(Integer, ForeignKey('favoritos.id'))
+    # favoritos = relationship(Favoritos)
+
+class Vehicles(Base):
+    __tablename__ = 'vehicles'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    nombre = Column(String(250))
+    modelo = Column(String(250))
+    año_creacion= Column(String(250))
+    capacidad = Column(String(250), nullable=False)
+    # favoritos_id = Column(Integer, ForeignKey('favoritos.id'))
+    # favoritos = relationship(Favoritos)
 
     def to_dict(self):
         return {}
